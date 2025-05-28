@@ -31,10 +31,13 @@ function App() {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
     setInput("");
   };
-
+  const handleDelete = (id: number) => {
+    const filtered = todos.filter((todo) => todo.id !== id);
+    setTodos(filtered);
+  };
   return (
     <div className="flex justify-center bg-black h-[100vh] text-white">
-      <div className="flex flex-col w-140 p-8 border m-10">
+      <div className="flex flex-col w-140 p-8 border  text-white m-10">
         <div className="flex justify-center m-4">
           <div className="text-lg font-bold">Todos for the day</div>
         </div>
@@ -42,7 +45,7 @@ function App() {
         {/* ✅ Input and Add Button */}
         <div className="flex flex-row items-center gap-4 justify-between">
           <input
-            className="border-2 px-6 py-2 rounded text-black w-full"
+            className="border-2 px-6 py-2 rounded  w-full"
             onChange={(e) => setInput(e.target.value)}
             value={input}
             type="text"
@@ -66,9 +69,9 @@ function App() {
               className="border-2 px-6 py-3 rounded flex flex-row items-center justify-between"
             >
               <div>{todo.text}</div>
-              <div className="flex flex-row gap-4 text-xl cursor-pointer">
-                <MdDelete />
-                <CiEdit />
+              <div className="flex flex-row   text-white gap-4 text-xl cursor-pointer">
+              <MdDelete onClick={() => handleDelete(todo.id)} />
+              <CiEdit />
               </div>
             </div>
           ))}
