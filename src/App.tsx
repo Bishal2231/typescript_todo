@@ -35,6 +35,12 @@ function App() {
     const filtered = todos.filter((todo) => todo.id !== id);
     setTodos(filtered);
   };
+  const handleComplete = (id: number) => {
+    const updatedTodos = todos.map(todo => 
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+    setTodos(updatedTodos);
+  };
   return (
     <div className="flex justify-center bg-black h-[100vh] text-white">
       <div className="flex flex-col w-140 p-8 border  text-white m-10">
@@ -70,8 +76,12 @@ function App() {
             >
               <div>{todo.text}</div>
               <div className="flex flex-row   text-white gap-4 text-xl cursor-pointer">
-              <MdDelete onClick={() => handleDelete(todo.id)} />
-              <CiEdit />
+                <MdDelete onClick={() => handleDelete(todo.id)} />
+        
+                <CiEdit
+                  onClick={() => handleComplete(todo.id)}
+                  className={todo.completed?`bg-orange-600`:`bg-black`}
+                />
               </div>
             </div>
           ))}
